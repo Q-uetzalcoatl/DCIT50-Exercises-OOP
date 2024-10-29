@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 class Invoice {
     private String itemNumber;
     private String description;
@@ -24,8 +27,8 @@ class Invoice {
 
 public class InvoiceApp {
     public static void main(String[] args) {
-        java.util.Scanner scanner = new java.util.Scanner(System.in);
-        Invoice invoice = new Invoice();
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Invoice> invoices = new ArrayList<>();  // List to store multiple invoices
 
         while (true) {
             System.out.println("Option");
@@ -37,21 +40,37 @@ public class InvoiceApp {
             scanner.nextLine(); // consume newline
 
             if (option == 1) {
+                // Create a new invoice object for each entry
+                Invoice invoice = new Invoice();
+                
                 System.out.print("Enter Item Number: ");
                 invoice.setItemNumber(scanner.nextLine());
+                
                 System.out.print("Enter Item Description: ");
                 invoice.setDescription(scanner.nextLine());
+                
                 System.out.print("Quantity: ");
                 invoice.setQuantity(scanner.nextInt());
+                
                 System.out.print("Price: ");
                 invoice.setPricePerItem(scanner.nextDouble());
+                
+                invoices.add(invoice);  // Add the invoice to the list
                 System.out.println("Invoice Created!");
-            } else if (option == 2) {
-                System.out.println("Item Number Description Quantity Price Total Amount");
-                System.out.println(invoice.getItemNumber() + " " + invoice.getDescription() + " " +
-                        invoice.getQuantity() + " " + invoice.getPricePerItem() + " PHP " +
-                        invoice.getInvoiceAmount());
-            } else if (option == 3) {
+            } 
+            else if (option == 2) {
+                System.out.println("Item Number\tDescription\tQuantity\tPrice\tTotal Amount");
+                
+                // Loop through the list and print each invoice
+                for (Invoice invoice : invoices) {
+                    System.out.println(invoice.getItemNumber() + "\t\t" + 
+                                       invoice.getDescription() + "\t\t" + 
+                                       invoice.getQuantity() + "\t\t" + 
+                                       invoice.getPricePerItem() + "\t\tPHP " + 
+                                       invoice.getInvoiceAmount());
+                }
+            } 
+            else if (option == 3) {
                 break;
             }
         }
